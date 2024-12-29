@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import {
+  Screen,
   FormView,
   FormLayout,
   Row,
@@ -86,49 +87,55 @@ export const schema: Schema<Values, Inputs, Params> = [
         age: [20, []],
       }),
       render: ({ values, params, onNext }) => (
-        <AnimateContent
-          step="name"
-          animate={params.animate}
-          setAnimate={params.setAnimate}
-        >
-          <FormView
-            defaultValues={values}
-            resolver={zodResolver(
-              z.object({
-                name: z
-                  .string()
-                  .min(1, { message: "Required" })
-                  .max(20, { message: "Must be at most 20 characters" }),
-                surname: z
-                  .string()
-                  .min(1, { message: "Required" })
-                  .max(20, { message: "Must be at most 20 characters" }),
-                age: z
-                  .number()
-                  .min(18, { message: "Minimum of 18 years old" })
-                  .max(99, { message: "Maximum of 99 years old" }),
-              })
-            )}
-            onNext={onNext}
+        <Screen progress={{ total: 3, current: 1 }}>
+          <AnimateContent
+            step="name"
+            animate={params.animate}
             setAnimate={params.setAnimate}
           >
-            <FormLayout
-              heading="Tell us about yourself"
-              description="We would want to know a little bit more about you"
-              fields={[
-                <Row
-                  key="name-surname"
-                  items={[
-                    <TextField key="name" name="name" label="Name" />,
-                    <TextField key="surname" name="surname" label="Surname" />,
-                  ]}
-                />,
-                <NumberField key="age" name="age" label="Age" />,
-              ]}
-              button={<Next>Next</Next>}
-            />
-          </FormView>
-        </AnimateContent>
+            <FormView
+              defaultValues={values}
+              resolver={zodResolver(
+                z.object({
+                  name: z
+                    .string()
+                    .min(1, { message: "Required" })
+                    .max(20, { message: "Must be at most 20 characters" }),
+                  surname: z
+                    .string()
+                    .min(1, { message: "Required" })
+                    .max(20, { message: "Must be at most 20 characters" }),
+                  age: z
+                    .number()
+                    .min(18, { message: "Minimum of 18 years old" })
+                    .max(99, { message: "Maximum of 99 years old" }),
+                })
+              )}
+              onNext={onNext}
+              setAnimate={params.setAnimate}
+            >
+              <FormLayout
+                heading="Tell us about yourself"
+                description="We would want to know a little bit more about you"
+                fields={[
+                  <Row
+                    key="name-surname"
+                    items={[
+                      <TextField key="name" name="name" label="Name" />,
+                      <TextField
+                        key="surname"
+                        name="surname"
+                        label="Surname"
+                      />,
+                    ]}
+                  />,
+                  <NumberField key="age" name="age" label="Age" />,
+                ]}
+                button={<Next>Next</Next>}
+              />
+            </FormView>
+          </AnimateContent>
+        </Screen>
       ),
     },
   },
@@ -138,36 +145,38 @@ export const schema: Schema<Values, Inputs, Params> = [
         softwareDeveloper: [true, []],
       }),
       render: ({ values, params, onNext, onBack }) => (
-        <AnimateContent
-          step="softwareDeveloper"
-          animate={params.animate}
-          setAnimate={params.setAnimate}
-        >
-          <FormView
-            defaultValues={values}
-            resolver={zodResolver(
-              z.object({
-                softwareDeveloper: z.boolean(),
-              })
-            )}
-            onNext={onNext}
+        <Screen progress={{ total: 3, current: 2 }}>
+          <AnimateContent
+            step="softwareDeveloper"
+            animate={params.animate}
             setAnimate={params.setAnimate}
           >
-            <FormLayout
-              heading="Are you a software developer?"
-              description="We would like to know if you are a software developer"
-              fields={[
-                <YesNo
-                  key="softwareDeveloper"
-                  name="softwareDeveloper"
-                  label="Software Developer"
-                />,
-              ]}
-              button={<Next>Next</Next>}
-              back={<Back onBack={onBack} setAnimate={params.setAnimate} />}
-            />
-          </FormView>
-        </AnimateContent>
+            <FormView
+              defaultValues={values}
+              resolver={zodResolver(
+                z.object({
+                  softwareDeveloper: z.boolean(),
+                })
+              )}
+              onNext={onNext}
+              setAnimate={params.setAnimate}
+            >
+              <FormLayout
+                heading="Are you a software developer?"
+                description="We would like to know if you are a software developer"
+                fields={[
+                  <YesNo
+                    key="softwareDeveloper"
+                    name="softwareDeveloper"
+                    label="Software Developer"
+                  />,
+                ]}
+                button={<Next>Next</Next>}
+                back={<Back onBack={onBack} setAnimate={params.setAnimate} />}
+              />
+            </FormView>
+          </AnimateContent>
+        </Screen>
       ),
     },
   },
@@ -195,40 +204,42 @@ export const schema: Schema<Values, Inputs, Params> = [
               languages: [[], []],
             }),
             render: ({ inputs, values, params, onNext, onBack }) => (
-              <AnimateContent
-                step="languages"
-                animate={params.animate}
-                setAnimate={params.setAnimate}
-              >
-                <FormView
-                  defaultValues={values}
-                  resolver={zodResolver(
-                    z.object({
-                      languages: z.array(z.string()),
-                    })
-                  )}
-                  onNext={onNext}
+              <Screen progress={{ total: 3, current: 3 }}>
+                <AnimateContent
+                  step="languages"
+                  animate={params.animate}
                   setAnimate={params.setAnimate}
                 >
-                  <FormLayout
-                    heading="What are your favourite programming languages?"
-                    description="We would like to know which of the following programming languages you like the most"
-                    fields={[
-                      <MultiSelect
-                        key="languages"
-                        name="languages"
-                        label="Languages"
-                        options={inputs.languagesOptions}
-                        direction="y"
-                      />,
-                    ]}
-                    button={<Next>Next</Next>}
-                    back={
-                      <Back onBack={onBack} setAnimate={params.setAnimate} />
-                    }
-                  />
-                </FormView>
-              </AnimateContent>
+                  <FormView
+                    defaultValues={values}
+                    resolver={zodResolver(
+                      z.object({
+                        languages: z.array(z.string()),
+                      })
+                    )}
+                    onNext={onNext}
+                    setAnimate={params.setAnimate}
+                  >
+                    <FormLayout
+                      heading="What are your favourite programming languages?"
+                      description="We would like to know which of the following programming languages you like the most"
+                      fields={[
+                        <MultiSelect
+                          key="languages"
+                          name="languages"
+                          label="Languages"
+                          options={inputs.languagesOptions}
+                          direction="y"
+                        />,
+                      ]}
+                      button={<Next>Next</Next>}
+                      back={
+                        <Back onBack={onBack} setAnimate={params.setAnimate} />
+                      }
+                    />
+                  </FormView>
+                </AnimateContent>
+              </Screen>
             ),
           },
         },
@@ -258,56 +269,63 @@ export const schema: Schema<Values, Inputs, Params> = [
                     rating: ["love-it", [language]],
                   }),
                   render: ({ inputs, values, params, onNext, onBack }) => (
-                    <AnimateContent
-                      step={`rating-${inputs.language}`}
-                      animate={params.animate}
-                      setAnimate={params.setAnimate}
+                    <Screen
+                      progress={{
+                        total: 3 + inputs.languages.length,
+                        current: 4 + inputs.i,
+                      }}
                     >
-                      <FormView
-                        defaultValues={values}
-                        resolver={zodResolver(
-                          z.object({
-                            rating: z.string(),
-                          })
-                        )}
-                        onNext={onNext}
+                      <AnimateContent
+                        step={`rating-${inputs.language}`}
+                        animate={params.animate}
                         setAnimate={params.setAnimate}
                       >
-                        <FormLayout
-                          heading={inputs.question}
-                          description="Since you said it is one of your favourite languages, we would like to know how much you like it"
-                          fields={[
-                            <Select
-                              key="rating"
-                              name="rating"
-                              label="Rating"
-                              options={[
-                                {
-                                  value: "love-it",
-                                  label: "Love it",
-                                },
-                                {
-                                  value: "like-it-a-lot",
-                                  label: "Like it a lot",
-                                },
-                                {
-                                  value: "it-is-okay",
-                                  label: "It's okay",
-                                },
-                              ]}
-                              direction="y"
-                            />,
-                          ]}
-                          button={<Next>Next</Next>}
-                          back={
-                            <Back
-                              onBack={onBack}
-                              setAnimate={params.setAnimate}
-                            />
-                          }
-                        />
-                      </FormView>
-                    </AnimateContent>
+                        <FormView
+                          defaultValues={values}
+                          resolver={zodResolver(
+                            z.object({
+                              rating: z.string(),
+                            })
+                          )}
+                          onNext={onNext}
+                          setAnimate={params.setAnimate}
+                        >
+                          <FormLayout
+                            heading={inputs.question}
+                            description="Since you said it is one of your favourite languages, we would like to know how much you like it"
+                            fields={[
+                              <Select
+                                key="rating"
+                                name="rating"
+                                label="Rating"
+                                options={[
+                                  {
+                                    value: "love-it",
+                                    label: "Love it",
+                                  },
+                                  {
+                                    value: "like-it-a-lot",
+                                    label: "Like it a lot",
+                                  },
+                                  {
+                                    value: "it-is-okay",
+                                    label: "It's okay",
+                                  },
+                                ]}
+                                direction="y"
+                              />,
+                            ]}
+                            button={<Next>Next</Next>}
+                            back={
+                              <Back
+                                onBack={onBack}
+                                setAnimate={params.setAnimate}
+                              />
+                            }
+                          />
+                        </FormView>
+                      </AnimateContent>
+                    </Screen>
                   ),
                 },
               },
@@ -345,52 +363,54 @@ export const schema: Schema<Values, Inputs, Params> = [
               interested: ["maybe", []],
             }),
             render: ({ values, params, onNext, onBack }) => (
-              <AnimateContent
-                step="interested"
-                animate={params.animate}
-                setAnimate={params.setAnimate}
-              >
-                <FormView
-                  defaultValues={values}
-                  resolver={zodResolver(
-                    z.object({
-                      interested: z.string(),
-                    })
-                  )}
-                  onNext={onNext}
+              <Screen progress={{ total: 3, current: 3 }}>
+                <AnimateContent
+                  step="interested"
+                  animate={params.animate}
                   setAnimate={params.setAnimate}
                 >
-                  <FormLayout
-                    heading="Would you be interested in learning how to code?"
-                    description="Having coding skills can be very beneficial"
-                    fields={[
-                      <Listbox
-                        key="interested"
-                        name="interested"
-                        label="Interested"
-                        options={[
-                          {
-                            value: "maybe",
-                            label: "Maybe in another time.",
-                          },
-                          {
-                            value: "yes",
-                            label: "Yes, that sounds good.",
-                          },
-                          {
-                            value: "no",
-                            label: "No, it is not for me.",
-                          },
-                        ]}
-                      />,
-                    ]}
-                    button={<Next>Next</Next>}
-                    back={
-                      <Back onBack={onBack} setAnimate={params.setAnimate} />
-                    }
-                  />
-                </FormView>
-              </AnimateContent>
+                  <FormView
+                    defaultValues={values}
+                    resolver={zodResolver(
+                      z.object({
+                        interested: z.string(),
+                      })
+                    )}
+                    onNext={onNext}
+                    setAnimate={params.setAnimate}
+                  >
+                    <FormLayout
+                      heading="Would you be interested in learning how to code?"
+                      description="Having coding skills can be very beneficial"
+                      fields={[
+                        <Listbox
+                          key="interested"
+                          name="interested"
+                          label="Interested"
+                          options={[
+                            {
+                              value: "maybe",
+                              label: "Maybe in another time.",
+                            },
+                            {
+                              value: "yes",
+                              label: "Yes, that sounds good.",
+                            },
+                            {
+                              value: "no",
+                              label: "No, it is not for me.",
+                            },
+                          ]}
+                        />,
+                      ]}
+                      button={<Next>Next</Next>}
+                      back={
+                        <Back onBack={onBack} setAnimate={params.setAnimate} />
+                      }
+                    />
+                  </FormView>
+                </AnimateContent>
+              </Screen>
             ),
           },
         },

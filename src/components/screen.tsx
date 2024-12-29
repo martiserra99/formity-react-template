@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { motion } from "framer-motion";
+
 interface ScreenProps {
   progress: { total: number; current: number };
   children: ReactNode;
@@ -22,9 +24,9 @@ interface ProgressProps {
 function Progress({ total, current }: ProgressProps) {
   return (
     <div className="absolute left-0 right-0 top-0 h-1 bg-indigo-500/50">
-      <div
+      <motion.div
         className="h-full bg-indigo-500"
-        style={{ width: `${(current / total) * 100}%` }}
+        animate={{ width: `${(current / total) * 100}%` }}
       />
     </div>
   );
