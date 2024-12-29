@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import {
-  Screen,
   FormView,
   FormLayout,
   Row,
@@ -24,6 +23,8 @@ import {
   Next,
   Back,
 } from "./components";
+
+import AnimateContent from "./animate-content";
 
 export type Values = [
   Form<{ name: string; surname: string; age: number }>,
@@ -78,7 +79,7 @@ export const schema: Schema<Values> = [
         age: [20, []],
       }),
       render: ({ values, onNext }) => (
-        <Screen key="name" progress={{ total: 3, current: 1 }}>
+        <AnimateContent step="name">
           <FormView
             defaultValues={values}
             resolver={zodResolver(
@@ -115,7 +116,7 @@ export const schema: Schema<Values> = [
               button={<Next>Next</Next>}
             />
           </FormView>
-        </Screen>
+        </AnimateContent>
       ),
     },
   },
@@ -125,7 +126,7 @@ export const schema: Schema<Values> = [
         softwareDeveloper: [true, []],
       }),
       render: ({ values, onNext, onBack }) => (
-        <Screen key="softwareDeveloper" progress={{ total: 3, current: 2 }}>
+        <AnimateContent step="softwareDeveloper">
           <FormView
             defaultValues={values}
             resolver={zodResolver(
@@ -149,7 +150,7 @@ export const schema: Schema<Values> = [
               back={<Back onBack={onBack} />}
             />
           </FormView>
-        </Screen>
+        </AnimateContent>
       ),
     },
   },
@@ -177,7 +178,7 @@ export const schema: Schema<Values> = [
               languages: [[], []],
             }),
             render: ({ inputs, values, onNext, onBack }) => (
-              <Screen key="languages" progress={{ total: 3, current: 3 }}>
+              <AnimateContent step="languages">
                 <FormView
                   defaultValues={values}
                   resolver={zodResolver(
@@ -203,7 +204,7 @@ export const schema: Schema<Values> = [
                     back={<Back onBack={onBack} />}
                   />
                 </FormView>
-              </Screen>
+              </AnimateContent>
             ),
           },
         },
@@ -233,13 +234,7 @@ export const schema: Schema<Values> = [
                     rating: ["love-it", [language]],
                   }),
                   render: ({ inputs, values, onNext, onBack }) => (
-                    <Screen
-                      key={`rating-${inputs.language}`}
-                      progress={{
-                        total: 3 + inputs.languages.length,
-                        current: 4 + inputs.i,
-                      }}
-                    >
+                    <AnimateContent step={`rating-${inputs.language}`}>
                       <FormView
                         defaultValues={values}
                         resolver={zodResolver(
@@ -278,7 +273,7 @@ export const schema: Schema<Values> = [
                           back={<Back onBack={onBack} />}
                         />
                       </FormView>
-                    </Screen>
+                    </AnimateContent>
                   ),
                 },
               },
@@ -316,7 +311,7 @@ export const schema: Schema<Values> = [
               interested: ["maybe", []],
             }),
             render: ({ values, onNext, onBack }) => (
-              <Screen key="interested" progress={{ total: 3, current: 3 }}>
+              <AnimateContent step="interested">
                 <FormView
                   defaultValues={values}
                   resolver={zodResolver(
@@ -354,7 +349,7 @@ export const schema: Schema<Values> = [
                     back={<Back onBack={onBack} />}
                   />
                 </FormView>
-              </Screen>
+              </AnimateContent>
             ),
           },
         },
