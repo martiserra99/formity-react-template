@@ -24,7 +24,7 @@ import {
   Back,
 } from "./components";
 
-import AnimateContent from "./animate-content";
+import { AnimateContent, Animate, SetAnimate } from "./animate";
 
 export type Values = [
   Form<{ name: string; surname: string; age: number }>,
@@ -70,7 +70,14 @@ export type Values = [
   }>
 ];
 
-export const schema: Schema<Values> = [
+export type Inputs = object;
+
+export type Params = {
+  animate: Animate;
+  setAnimate: SetAnimate;
+};
+
+export const schema: Schema<Values, Inputs, Params> = [
   {
     form: {
       values: () => ({
@@ -78,8 +85,12 @@ export const schema: Schema<Values> = [
         surname: ["", []],
         age: [20, []],
       }),
-      render: ({ values, onNext }) => (
-        <AnimateContent step="name">
+      render: ({ values, params, onNext }) => (
+        <AnimateContent
+          step="name"
+          animate={params.animate}
+          setAnimate={params.setAnimate}
+        >
           <FormView
             defaultValues={values}
             resolver={zodResolver(
@@ -99,6 +110,7 @@ export const schema: Schema<Values> = [
               })
             )}
             onNext={onNext}
+            setAnimate={params.setAnimate}
           >
             <FormLayout
               heading="Tell us about yourself"
@@ -125,8 +137,12 @@ export const schema: Schema<Values> = [
       values: () => ({
         softwareDeveloper: [true, []],
       }),
-      render: ({ values, onNext, onBack }) => (
-        <AnimateContent step="softwareDeveloper">
+      render: ({ values, params, onNext, onBack }) => (
+        <AnimateContent
+          step="softwareDeveloper"
+          animate={params.animate}
+          setAnimate={params.setAnimate}
+        >
           <FormView
             defaultValues={values}
             resolver={zodResolver(
@@ -135,6 +151,7 @@ export const schema: Schema<Values> = [
               })
             )}
             onNext={onNext}
+            setAnimate={params.setAnimate}
           >
             <FormLayout
               heading="Are you a software developer?"
@@ -147,7 +164,7 @@ export const schema: Schema<Values> = [
                 />,
               ]}
               button={<Next>Next</Next>}
-              back={<Back onBack={onBack} />}
+              back={<Back onBack={onBack} setAnimate={params.setAnimate} />}
             />
           </FormView>
         </AnimateContent>
@@ -177,8 +194,12 @@ export const schema: Schema<Values> = [
             values: () => ({
               languages: [[], []],
             }),
-            render: ({ inputs, values, onNext, onBack }) => (
-              <AnimateContent step="languages">
+            render: ({ inputs, values, params, onNext, onBack }) => (
+              <AnimateContent
+                step="languages"
+                animate={params.animate}
+                setAnimate={params.setAnimate}
+              >
                 <FormView
                   defaultValues={values}
                   resolver={zodResolver(
@@ -187,6 +208,7 @@ export const schema: Schema<Values> = [
                     })
                   )}
                   onNext={onNext}
+                  setAnimate={params.setAnimate}
                 >
                   <FormLayout
                     heading="What are your favourite programming languages?"
@@ -201,7 +223,9 @@ export const schema: Schema<Values> = [
                       />,
                     ]}
                     button={<Next>Next</Next>}
-                    back={<Back onBack={onBack} />}
+                    back={
+                      <Back onBack={onBack} setAnimate={params.setAnimate} />
+                    }
                   />
                 </FormView>
               </AnimateContent>
@@ -233,8 +257,12 @@ export const schema: Schema<Values> = [
                   values: ({ language }) => ({
                     rating: ["love-it", [language]],
                   }),
-                  render: ({ inputs, values, onNext, onBack }) => (
-                    <AnimateContent step={`rating-${inputs.language}`}>
+                  render: ({ inputs, values, params, onNext, onBack }) => (
+                    <AnimateContent
+                      step={`rating-${inputs.language}`}
+                      animate={params.animate}
+                      setAnimate={params.setAnimate}
+                    >
                       <FormView
                         defaultValues={values}
                         resolver={zodResolver(
@@ -243,6 +271,7 @@ export const schema: Schema<Values> = [
                           })
                         )}
                         onNext={onNext}
+                        setAnimate={params.setAnimate}
                       >
                         <FormLayout
                           heading={inputs.question}
@@ -270,7 +299,12 @@ export const schema: Schema<Values> = [
                             />,
                           ]}
                           button={<Next>Next</Next>}
-                          back={<Back onBack={onBack} />}
+                          back={
+                            <Back
+                              onBack={onBack}
+                              setAnimate={params.setAnimate}
+                            />
+                          }
                         />
                       </FormView>
                     </AnimateContent>
@@ -310,8 +344,12 @@ export const schema: Schema<Values> = [
             values: () => ({
               interested: ["maybe", []],
             }),
-            render: ({ values, onNext, onBack }) => (
-              <AnimateContent step="interested">
+            render: ({ values, params, onNext, onBack }) => (
+              <AnimateContent
+                step="interested"
+                animate={params.animate}
+                setAnimate={params.setAnimate}
+              >
                 <FormView
                   defaultValues={values}
                   resolver={zodResolver(
@@ -320,6 +358,7 @@ export const schema: Schema<Values> = [
                     })
                   )}
                   onNext={onNext}
+                  setAnimate={params.setAnimate}
                 >
                   <FormLayout
                     heading="Would you be interested in learning how to code?"
@@ -346,7 +385,9 @@ export const schema: Schema<Values> = [
                       />,
                     ]}
                     button={<Next>Next</Next>}
-                    back={<Back onBack={onBack} />}
+                    back={
+                      <Back onBack={onBack} setAnimate={params.setAnimate} />
+                    }
                   />
                 </FormView>
               </AnimateContent>

@@ -7,16 +7,20 @@ import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 
 import { cn } from "@/utils";
 
+import { SetAnimate } from "../../animate";
+
 interface BackProps {
   onBack: OnBack;
+  setAnimate: SetAnimate;
 }
 
-export default function Back({ onBack }: BackProps) {
+export default function Back({ onBack, setAnimate }: BackProps) {
   const { getValues } = useFormContext();
 
   const handleClick = useCallback(() => {
-    onBack(getValues());
-  }, [onBack, getValues]);
+    setAnimate("back");
+    setTimeout(() => onBack(getValues()), 0);
+  }, [onBack, setAnimate, getValues]);
 
   return (
     <button
