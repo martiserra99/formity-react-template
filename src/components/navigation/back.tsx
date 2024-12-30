@@ -1,31 +1,16 @@
-import type { OnBack } from "@formity/react";
-
-import { useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 
+import { useController } from "@/controller";
 import { cn } from "@/utils";
 
-import { SetAnimate } from "../../animate";
-
-interface BackProps {
-  onBack: OnBack;
-  setAnimate: SetAnimate;
-}
-
-export default function Back({ onBack, setAnimate }: BackProps) {
+export default function Back() {
   const { getValues } = useFormContext();
-
-  const handleClick = useCallback(() => {
-    setAnimate("back");
-    setTimeout(() => onBack(getValues()), 0);
-  }, [onBack, setAnimate, getValues]);
-
+  const { onBack } = useController();
   return (
     <button
       type="button"
-      onClick={handleClick}
+      onClick={() => onBack(getValues())}
       className={cn(
         "block rounded-full border border-neutral-800 bg-neutral-950 px-6 py-2 hover:bg-neutral-800",
         "focus:outline-none focus:ring-2 focus:ring-white/10 focus:ring-offset-2 focus:ring-offset-black",

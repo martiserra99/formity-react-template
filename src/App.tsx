@@ -4,13 +4,9 @@ import { Formity, OnReturn, ReturnValues } from "@formity/react";
 
 import { Data } from "./components";
 
-import { schema, Values, Inputs, Params } from "./schema";
-
-import { Animate } from "./animate";
+import { schema, Values } from "./schema";
 
 export default function App() {
-  const [animate, setAnimate] = useState<Animate>("none");
-
   const [values, setValues] = useState<ReturnValues<Values> | null>(null);
 
   const onReturn = useCallback<OnReturn<Values>>((values) => {
@@ -21,11 +17,5 @@ export default function App() {
     return <Data data={values} onStart={() => setValues(null)} />;
   }
 
-  return (
-    <Formity<Values, Inputs, Params>
-      schema={schema}
-      params={{ animate, setAnimate }}
-      onReturn={onReturn}
-    />
-  );
+  return <Formity<Values> schema={schema} onReturn={onReturn} />;
 }
