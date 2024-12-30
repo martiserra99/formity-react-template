@@ -29,9 +29,7 @@ export default function FormLayout({
         </div>
         {button}
       </div>
-      {back && (
-        <div className="absolute left-4 top-5 origin-top-left">{back}</div>
-      )}
+      {back && <div className="absolute left-4 top-5">{back}</div>}
     </div>
   );
 }
