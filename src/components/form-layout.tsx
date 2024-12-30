@@ -16,8 +16,8 @@ export default function FormLayout({
   back,
 }: FormLayoutProps) {
   return (
-    <div className="relative flex h-full w-full items-center justify-center p-0 lg:p-8">
-      <div className="w-[115%] max-w-md shrink-0">
+    <div className="relative flex h-full w-full items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md shrink-0">
         <h1 className="mb-3 text-center text-3xl font-medium text-white">
           {heading}
         </h1>
