@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
-import type { MotionProps } from "framer-motion";
+import type { MotionProps } from "motion/react";
 import type { OnNext, OnBack, GetFlow, SetFlow } from "@formity/react";
 
 import { useCallback, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 
 import { ControllerContext } from "./controller-context";
 
