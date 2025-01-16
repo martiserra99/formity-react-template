@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { MotionProps } from "motion/react";
-import type { OnNext, OnBack, GetFlow, SetFlow } from "@formity/react";
+import type { OnNext, OnBack, GetState, SetState } from "@formity/react";
 
 import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -11,8 +11,8 @@ interface ControllerProps {
   step: string;
   onNext: OnNext;
   onBack: OnBack;
-  getFlow: GetFlow;
-  setFlow: SetFlow;
+  getState: GetState;
+  setState: SetState;
   children: ReactNode;
 }
 
@@ -20,8 +20,8 @@ export function Controller({
   step,
   onNext,
   onBack,
-  getFlow,
-  setFlow,
+  getState,
+  setState,
   children,
 }: ControllerProps) {
   const [animate, setAnimate] = useState<"none" | "next" | "back">("none");
@@ -46,10 +46,10 @@ export function Controller({
     () => ({
       onNext: handleNext,
       onBack: handleBack,
-      getFlow,
-      setFlow,
+      getState,
+      setState,
     }),
-    [handleNext, handleBack, getFlow, setFlow]
+    [handleNext, handleBack, getState, setState]
   );
 
   return (

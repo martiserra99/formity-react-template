@@ -79,15 +79,9 @@ export const schema: Schema<Values> = [
         surname: ["", []],
         age: [20, []],
       }),
-      render: ({ values, onNext, onBack, getFlow, setFlow }) => (
+      render: ({ values, ...rest }) => (
         <Screen progress={{ total: 3, current: 1 }}>
-          <Controller
-            step="name"
-            onNext={onNext}
-            onBack={onBack}
-            getFlow={getFlow}
-            setFlow={setFlow}
-          >
+          <Controller step="name" {...rest}>
             <FormView
               defaultValues={values}
               resolver={zodResolver(
@@ -137,15 +131,9 @@ export const schema: Schema<Values> = [
       values: () => ({
         softwareDeveloper: [true, []],
       }),
-      render: ({ values, onNext, onBack, getFlow, setFlow }) => (
+      render: ({ values, ...rest }) => (
         <Screen progress={{ total: 3, current: 2 }}>
-          <Controller
-            step="softwareDeveloper"
-            onNext={onNext}
-            onBack={onBack}
-            getFlow={getFlow}
-            setFlow={setFlow}
-          >
+          <Controller step="softwareDeveloper" {...rest}>
             <FormView
               defaultValues={values}
               resolver={zodResolver(
@@ -196,15 +184,9 @@ export const schema: Schema<Values> = [
             values: () => ({
               languages: [[], []],
             }),
-            render: ({ inputs, values, onNext, onBack, getFlow, setFlow }) => (
+            render: ({ inputs, values, ...rest }) => (
               <Screen progress={{ total: 3, current: 3 }}>
-                <Controller
-                  step="languages"
-                  onNext={onNext}
-                  onBack={onBack}
-                  getFlow={getFlow}
-                  setFlow={setFlow}
-                >
+                <Controller step="languages" {...rest}>
                   <FormView
                     defaultValues={values}
                     resolver={zodResolver(
@@ -264,8 +246,8 @@ export const schema: Schema<Values> = [
                     values,
                     onNext,
                     onBack,
-                    getFlow,
-                    setFlow,
+                    getState,
+                    setState,
                   }) => (
                     <Screen
                       progress={{
@@ -277,8 +259,8 @@ export const schema: Schema<Values> = [
                         step={`rating-${inputs.language}`}
                         onNext={onNext}
                         onBack={onBack}
-                        getFlow={getFlow}
-                        setFlow={setFlow}
+                        getState={getState}
+                        setState={setState}
                       >
                         <FormView
                           defaultValues={values}
@@ -355,15 +337,9 @@ export const schema: Schema<Values> = [
             values: () => ({
               interested: ["maybe", []],
             }),
-            render: ({ values, onNext, onBack, getFlow, setFlow }) => (
+            render: ({ values, ...rest }) => (
               <Screen progress={{ total: 3, current: 3 }}>
-                <Controller
-                  step="interested"
-                  onNext={onNext}
-                  onBack={onBack}
-                  getFlow={getFlow}
-                  setFlow={setFlow}
-                >
+                <Controller step="interested" {...rest}>
                   <FormView
                     defaultValues={values}
                     resolver={zodResolver(
