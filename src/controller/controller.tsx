@@ -53,27 +53,27 @@ export function Controller({
   );
 
   return (
-    <ControllerContext.Provider value={values}>
-      <AnimatePresence
-        mode="popLayout"
-        initial={false}
-        onExitComplete={() => setAnimate("none")}
+    <AnimatePresence
+      mode="popLayout"
+      initial={false}
+      onExitComplete={() => setAnimate("none")}
+    >
+      <motion.div
+        key={step}
+        initial={{ opacity: 0, x: 100 }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          transition: { delay: 0.25, duration: 0.25 },
+        }}
+        {...motionProps(animate)}
+        className="h-full"
       >
-        <motion.div
-          key={step}
-          initial={{ opacity: 0, x: 100 }}
-          animate={{
-            x: 0,
-            opacity: 1,
-            transition: { delay: 0.25, duration: 0.25 },
-          }}
-          {...motionProps(animate)}
-          className="h-full"
-        >
+        <ControllerContext.Provider value={values}>
           {children}
-        </motion.div>
-      </AnimatePresence>
-    </ControllerContext.Provider>
+        </ControllerContext.Provider>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
