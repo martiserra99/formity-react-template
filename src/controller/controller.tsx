@@ -42,14 +42,17 @@ export function Controller({
     [onBack]
   );
 
+  const shifting = animate !== "none";
+
   const values = useMemo(
     () => ({
+      shifting: shifting,
       onNext: handleNext,
       onBack: handleBack,
-      getState,
-      setState,
+      getState: getState,
+      setState: setState,
     }),
-    [handleNext, handleBack, getState, setState]
+    [shifting, handleNext, handleBack, getState, setState]
   );
 
   return (
