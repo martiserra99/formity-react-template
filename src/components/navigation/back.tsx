@@ -6,12 +6,11 @@ import { cn } from "@/utils";
 
 export default function Back() {
   const { getValues } = useFormContext();
-  const { shifting, onBack } = useController();
+  const { onBack } = useController();
   return (
     <button
       type="button"
       onClick={() => onBack(getValues())}
-      disabled={shifting}
       className={cn(
         "block rounded-full border border-neutral-800 bg-neutral-950 px-6 py-2 hover:bg-neutral-800",
         "focus:outline-none focus:ring-2 focus:ring-white/10 focus:ring-offset-2 focus:ring-offset-black",

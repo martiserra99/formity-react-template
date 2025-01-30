@@ -24,46 +24,44 @@ export function Controller({
   setState,
   children,
 }: ControllerProps) {
-  const [animate, setAnimate] = useState<"none" | "next" | "back">("none");
+  const [animate, setAnimate] = useState<"next" | "back" | false>(false);
 
   const handleNext = useCallback<OnNext>(
     (values) => {
+      if (animate) return;
       setAnimate("next");
       setTimeout(() => onNext(values), 0);
     },
-    [onNext]
+    [animate, onNext]
   );
 
   const handleBack = useCallback<OnBack>(
     (values) => {
+      if (animate) return;
       setAnimate("back");
       setTimeout(() => onBack(values), 0);
     },
-    [onBack]
+    [animate, onBack]
   );
-
-  const shifting = animate !== "none";
 
   const values = useMemo(
     () => ({
-      shifting: shifting,
       onNext: handleNext,
       onBack: handleBack,
       getState: getState,
       setState: setState,
     }),
-    [shifting, handleNext, handleBack, getState, setState]
+    [handleNext, handleBack, getState, setState]
   );
 
   return (
     <AnimatePresence
       mode="popLayout"
       initial={false}
-      onExitComplete={() => setAnimate("none")}
+      onExitComplete={() => setAnimate(false)}
     >
       <motion.div
         key={step}
-        initial={{ opacity: 0, x: 100 }}
         animate={{
           x: 0,
           opacity: 1,
@@ -80,26 +78,27 @@ export function Controller({
   );
 }
 
-function motionProps(animate: "none" | "next" | "back"): MotionProps {
-  if (animate === "next") {
-    return {
-      initial: { x: 100, opacity: 0 },
-      exit: {
-        x: -100,
-        opacity: 0,
-        transition: { delay: 0, duration: 0.25 },
-      },
-    };
+function motionProps(animate: "next" | "back" | false): MotionProps {
+  switch (animate) {
+    case "next":
+      return {
+        initial: { x: 100, opacity: 0 },
+        exit: {
+          x: -100,
+          opacity: 0,
+          transition: { delay: 0, duration: 0.25 },
+        },
+      };
+    case "back":
+      return {
+        initial: { x: -100, opacity: 0 },
+        exit: {
+          x: 100,
+          opacity: 0,
+          transition: { delay: 0, duration: 0.25 },
+        },
+      };
+    default:
+      return {};
   }
-  if (animate === "back") {
-    return {
-      initial: { x: -100, opacity: 0 },
-      exit: {
-        x: 100,
-        opacity: 0,
-        transition: { delay: 0, duration: 0.25 },
-      },
-    };
-  }
-  return {};
 }
