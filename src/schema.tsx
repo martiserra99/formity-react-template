@@ -168,14 +168,14 @@ export const schema: Schema<Values> = [
         {
           variables: () => ({
             languagesOptions: [
-              { value: "javascript", label: "JavaScript" },
-              { value: "python", label: "Python" },
+              { value: "js", label: "JavaScript" },
+              { value: "py", label: "Python" },
               { value: "go", label: "Go" },
             ],
             questions: {
-              javascript: "What rating would you give to JavaScript?",
-              python: "What rating would you give to Python?",
-              go: "What rating would you give to Go?",
+              js: "What rating would you give to the JavaScript language?",
+              py: "What rating would you give to the Python language?",
+              go: "What rating would you give to the Go language?",
             },
           }),
         },
