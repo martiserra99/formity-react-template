@@ -12,8 +12,8 @@ import { z } from "zod";
 
 import {
   Screen,
-  FormView,
-  FormLayout,
+  Step,
+  Layout,
   Row,
   TextField,
   NumberField,
@@ -21,11 +21,11 @@ import {
   Listbox,
   Select,
   YesNo,
-  Next,
-  Back,
+  NextButton,
+  BackButton,
 } from "./components";
 
-import { Controller } from "./controller";
+import { MultiStep } from "./multi-step";
 
 export type Values = [
   Form<{ name: string; surname: string; age: number }>,
@@ -55,7 +55,7 @@ export type Values = [
       Return<{
         fullName: string;
         age: number;
-        softwareDeveloper: boolean;
+        softwareDeveloper: true;
         languages: { name: string; rating: string }[];
       }>
     ];
@@ -64,7 +64,7 @@ export type Values = [
       Return<{
         fullName: string;
         age: number;
-        softwareDeveloper: boolean;
+        softwareDeveloper: false;
         interested: string;
       }>
     ];
@@ -81,8 +81,8 @@ export const schema: Schema<Values> = [
       }),
       render: ({ values, ...rest }) => (
         <Screen progress={{ total: 3, current: 1 }}>
-          <Controller step="name" {...rest}>
-            <FormView
+          <MultiStep step="name" {...rest}>
+            <Step
               defaultValues={values}
               resolver={zodResolver(
                 z.object({
@@ -101,7 +101,7 @@ export const schema: Schema<Values> = [
                 })
               )}
             >
-              <FormLayout
+              <Layout
                 heading="Tell us about yourself"
                 description="We would want to know a little bit more about you"
                 fields={[
@@ -118,10 +118,10 @@ export const schema: Schema<Values> = [
                   />,
                   <NumberField key="age" name="age" label="Age" />,
                 ]}
-                button={<Next>Next</Next>}
+                button={<NextButton>Next</NextButton>}
               />
-            </FormView>
-          </Controller>
+            </Step>
+          </MultiStep>
         </Screen>
       ),
     },
@@ -133,8 +133,8 @@ export const schema: Schema<Values> = [
       }),
       render: ({ values, ...rest }) => (
         <Screen progress={{ total: 3, current: 2 }}>
-          <Controller step="softwareDeveloper" {...rest}>
-            <FormView
+          <MultiStep step="softwareDeveloper" {...rest}>
+            <Step
               defaultValues={values}
               resolver={zodResolver(
                 z.object({
@@ -142,7 +142,7 @@ export const schema: Schema<Values> = [
                 })
               )}
             >
-              <FormLayout
+              <Layout
                 heading="Are you a software developer?"
                 description="We would like to know if you are a software developer"
                 fields={[
@@ -152,11 +152,11 @@ export const schema: Schema<Values> = [
                     label="Software Developer"
                   />,
                 ]}
-                button={<Next>Next</Next>}
-                back={<Back />}
+                button={<NextButton>Next</NextButton>}
+                back={<BackButton />}
               />
-            </FormView>
-          </Controller>
+            </Step>
+          </MultiStep>
         </Screen>
       ),
     },
@@ -186,8 +186,8 @@ export const schema: Schema<Values> = [
             }),
             render: ({ inputs, values, ...rest }) => (
               <Screen progress={{ total: 3, current: 3 }}>
-                <Controller step="languages" {...rest}>
-                  <FormView
+                <MultiStep step="languages" {...rest}>
+                  <Step
                     defaultValues={values}
                     resolver={zodResolver(
                       z.object({
@@ -195,7 +195,7 @@ export const schema: Schema<Values> = [
                       })
                     )}
                   >
-                    <FormLayout
+                    <Layout
                       heading="What are your favourite programming languages?"
                       description="We would like to know which of the following programming languages you like the most"
                       fields={[
@@ -207,11 +207,11 @@ export const schema: Schema<Values> = [
                           direction="y"
                         />,
                       ]}
-                      button={<Next>Next</Next>}
-                      back={<Back />}
+                      button={<NextButton>Next</NextButton>}
+                      back={<BackButton />}
                     />
-                  </FormView>
-                </Controller>
+                  </Step>
+                </MultiStep>
               </Screen>
             ),
           },
@@ -255,14 +255,14 @@ export const schema: Schema<Values> = [
                         current: 4 + inputs.i,
                       }}
                     >
-                      <Controller
+                      <MultiStep
                         step={`rating-${inputs.language}`}
                         onNext={onNext}
                         onBack={onBack}
                         getState={getState}
                         setState={setState}
                       >
-                        <FormView
+                        <Step
                           defaultValues={values}
                           resolver={zodResolver(
                             z.object({
@@ -270,7 +270,7 @@ export const schema: Schema<Values> = [
                             })
                           )}
                         >
-                          <FormLayout
+                          <Layout
                             heading={inputs.question}
                             description="Since you said it is one of your favourite languages, we would like to know how much you like it"
                             fields={[
@@ -295,11 +295,11 @@ export const schema: Schema<Values> = [
                                 direction="y"
                               />,
                             ]}
-                            button={<Next>Next</Next>}
-                            back={<Back />}
+                            button={<NextButton>Next</NextButton>}
+                            back={<BackButton />}
                           />
-                        </FormView>
-                      </Controller>
+                        </Step>
+                      </MultiStep>
                     </Screen>
                   ),
                 },
@@ -317,16 +317,10 @@ export const schema: Schema<Values> = [
           },
         },
         {
-          return: ({
-            name,
-            surname,
-            age,
-            softwareDeveloper,
-            languagesRatings,
-          }) => ({
+          return: ({ name, surname, age, languagesRatings }) => ({
             fullName: `${name} ${surname}`,
             age,
-            softwareDeveloper,
+            softwareDeveloper: true,
             languages: languagesRatings,
           }),
         },
@@ -339,8 +333,8 @@ export const schema: Schema<Values> = [
             }),
             render: ({ values, ...rest }) => (
               <Screen progress={{ total: 3, current: 3 }}>
-                <Controller step="interested" {...rest}>
-                  <FormView
+                <MultiStep step="interested" {...rest}>
+                  <Step
                     defaultValues={values}
                     resolver={zodResolver(
                       z.object({
@@ -348,7 +342,7 @@ export const schema: Schema<Values> = [
                       })
                     )}
                   >
-                    <FormLayout
+                    <Layout
                       heading="Would you be interested in learning how to code?"
                       description="Having coding skills can be very beneficial"
                       fields={[
@@ -372,20 +366,20 @@ export const schema: Schema<Values> = [
                           ]}
                         />,
                       ]}
-                      button={<Next>Next</Next>}
-                      back={<Back />}
+                      button={<NextButton>Next</NextButton>}
+                      back={<BackButton />}
                     />
-                  </FormView>
-                </Controller>
+                  </Step>
+                </MultiStep>
               </Screen>
             ),
           },
         },
         {
-          return: ({ name, surname, age, softwareDeveloper, interested }) => ({
+          return: ({ name, surname, age, interested }) => ({
             fullName: `${name} ${surname}`,
             age,
-            softwareDeveloper,
+            softwareDeveloper: false,
             interested,
           }),
         },

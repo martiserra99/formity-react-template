@@ -5,9 +5,9 @@ import type { OnNext, OnBack, GetState, SetState } from "@formity/react";
 import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-import { ControllerContext } from "./controller-context";
+import { MultiStepContext } from "./multi-step-context";
 
-interface ControllerProps {
+interface MultiStepProps {
   step: string;
   onNext: OnNext;
   onBack: OnBack;
@@ -16,41 +16,34 @@ interface ControllerProps {
   children: ReactNode;
 }
 
-export function Controller({
+export function MultiStep({
   step,
   onNext,
   onBack,
   getState,
   setState,
   children,
-}: ControllerProps) {
+}: MultiStepProps) {
   const [animate, setAnimate] = useState<"next" | "back" | false>(false);
 
   const handleNext = useCallback<OnNext>(
     (values) => {
-      if (animate) return;
       setAnimate("next");
       setTimeout(() => onNext(values), 0);
     },
-    [animate, onNext]
+    [onNext]
   );
 
   const handleBack = useCallback<OnBack>(
     (values) => {
-      if (animate) return;
       setAnimate("back");
       setTimeout(() => onBack(values), 0);
     },
-    [animate, onBack]
+    [onBack]
   );
 
   const values = useMemo(
-    () => ({
-      onNext: handleNext,
-      onBack: handleBack,
-      getState: getState,
-      setState: setState,
-    }),
+    () => ({ onNext: handleNext, onBack: handleBack, getState, setState }),
     [handleNext, handleBack, getState, setState]
   );
 
@@ -62,6 +55,7 @@ export function Controller({
     >
       <motion.div
         key={step}
+        inert={Boolean(animate)}
         animate={{
           x: 0,
           opacity: 1,
@@ -70,9 +64,9 @@ export function Controller({
         {...motionProps(animate)}
         className="h-full"
       >
-        <ControllerContext.Provider value={values}>
+        <MultiStepContext.Provider value={values}>
           {children}
-        </ControllerContext.Provider>
+        </MultiStepContext.Provider>
       </motion.div>
     </AnimatePresence>
   );

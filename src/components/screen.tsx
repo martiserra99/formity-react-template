@@ -27,6 +27,7 @@ function Progress({ total, current }: ProgressProps) {
       <motion.div
         className="h-full bg-indigo-500"
         animate={{ width: `${(current / total) * 100}%` }}
+        initial={false}
       />
     </div>
   );
