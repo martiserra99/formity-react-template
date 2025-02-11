@@ -106,7 +106,7 @@ export const schema: Schema<Values> = [
                 description="We would want to know a little bit more about you"
                 fields={[
                   <Row
-                    key="name-surname"
+                    key="nameSurname"
                     items={[
                       <TextField key="name" name="name" label="Name" />,
                       <TextField
