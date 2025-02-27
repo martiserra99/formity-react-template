@@ -31,7 +31,7 @@ export function MultiStep({
       setAnimate("next");
       setTimeout(() => onNext(values), 0);
     },
-    [onNext]
+    [onNext],
   );
 
   const handleBack = useCallback<OnBack>(
@@ -39,12 +39,12 @@ export function MultiStep({
       setAnimate("back");
       setTimeout(() => onBack(values), 0);
     },
-    [onBack]
+    [onBack],
   );
 
   const values = useMemo(
     () => ({ onNext: handleNext, onBack: handleBack, getState, setState }),
-    [handleNext, handleBack, getState, setState]
+    [handleNext, handleBack, getState, setState],
   );
 
   return (

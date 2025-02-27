@@ -15,7 +15,13 @@ export default function TextField({ name, label }: TextFieldProps) {
       control={control}
       name={name}
       render={({ field }) => (
-        <BaseTextField type="text" label={label} value={field.value} onChange={field.onChange} error={error} />
+        <BaseTextField
+          type="text"
+          label={label}
+          value={field.value}
+          onChange={field.onChange}
+          error={error}
+        />
       )}
     />
   );

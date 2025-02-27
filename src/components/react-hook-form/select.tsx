@@ -9,7 +9,12 @@ interface SelectProps {
   direction: "x" | "y";
 }
 
-export default function Select({ name, label, options, direction }: SelectProps) {
+export default function Select({
+  name,
+  label,
+  options,
+  direction,
+}: SelectProps) {
   const { control, formState } = useFormContext();
   const error = formState.errors[name] as { message: string } | undefined;
   return (

@@ -9,7 +9,12 @@ interface MultiSelectProps {
   direction: "x" | "y";
 }
 
-export default function MultiSelect({ name, label, options, direction }: MultiSelectProps) {
+export default function MultiSelect({
+  name,
+  label,
+  options,
+  direction,
+}: MultiSelectProps) {
   const { control, formState } = useFormContext();
   const error = formState.errors[name] as { message: string } | undefined;
   return (

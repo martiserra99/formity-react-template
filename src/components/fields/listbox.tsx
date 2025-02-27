@@ -36,9 +36,7 @@ export default function Listbox({
           as={ListboxButton}
           className={cn(
             "flex items-center gap-2 focus:outline-none data-[active]:border-neutral-500",
-            {
-              "border-red-500 data-[active]:border-red-500": error,
-            }
+            { "border-red-500 data-[active]:border-red-500": error },
           )}
         >
           {option.label}

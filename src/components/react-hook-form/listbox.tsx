@@ -16,7 +16,13 @@ export default function Listbox({ name, label, options }: ListboxProps) {
       control={control}
       name={name}
       render={({ field }) => (
-        <BaseListbox label={label} value={field.value} onChange={field.onChange} options={options} error={error} />
+        <BaseListbox
+          label={label}
+          value={field.value}
+          onChange={field.onChange}
+          options={options}
+          error={error}
+        />
       )}
     />
   );

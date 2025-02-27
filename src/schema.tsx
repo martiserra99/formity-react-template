@@ -49,7 +49,7 @@ export type Values = [
           Variables<{
             i: number;
             languagesRatings: { name: string; rating: string }[];
-          }>
+          }>,
         ]
       >,
       Return<{
@@ -57,7 +57,7 @@ export type Values = [
         age: number;
         softwareDeveloper: true;
         languages: { name: string; rating: string }[];
-      }>
+      }>,
     ];
     else: [
       Form<{ interested: string }>,
@@ -66,9 +66,9 @@ export type Values = [
         age: number;
         softwareDeveloper: false;
         interested: string;
-      }>
+      }>,
     ];
-  }>
+  }>,
 ];
 
 export const schema: Schema<Values> = [
@@ -98,7 +98,7 @@ export const schema: Schema<Values> = [
                     .number()
                     .min(18, { message: "Minimum of 18 years old" })
                     .max(99, { message: "Maximum of 99 years old" }),
-                })
+                }),
               )}
             >
               <Layout
@@ -139,7 +139,7 @@ export const schema: Schema<Values> = [
               resolver={zodResolver(
                 z.object({
                   softwareDeveloper: z.boolean(),
-                })
+                }),
               )}
             >
               <Layout
@@ -192,7 +192,7 @@ export const schema: Schema<Values> = [
                     resolver={zodResolver(
                       z.object({
                         languages: z.array(z.string()),
-                      })
+                      }),
                     )}
                   >
                     <Layout
@@ -267,7 +267,7 @@ export const schema: Schema<Values> = [
                           resolver={zodResolver(
                             z.object({
                               rating: z.string(),
-                            })
+                            }),
                           )}
                         >
                           <Layout
@@ -339,7 +339,7 @@ export const schema: Schema<Values> = [
                     resolver={zodResolver(
                       z.object({
                         interested: z.string(),
-                      })
+                      }),
                     )}
                   >
                     <Layout

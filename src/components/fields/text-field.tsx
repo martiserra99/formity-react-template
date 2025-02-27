@@ -29,7 +29,7 @@ export default function TextField({
       label={label}
       labelClassName={cn(
         "peer-placeholder-shown:top-[17px] peer-placeholder-shown:before:bg-transparent peer-focus:before:bg-neutral-950",
-        "peer-placeholder-shown:text-base peer-focus:-top-[11px] peer-focus:text-sm"
+        "peer-placeholder-shown:text-base peer-focus:-top-[11px] peer-focus:text-sm",
       )}
       error={error}
     >
@@ -44,7 +44,7 @@ export default function TextField({
         placeholder={label}
         className={cn(
           "peer placeholder-transparent focus:border-neutral-500 focus:outline-none focus:ring-transparent",
-          { "border-red-500 focus:border-red-500": error }
+          { "border-red-500 focus:border-red-500": error },
         )}
       />
     </Field>

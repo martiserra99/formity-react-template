@@ -48,16 +48,14 @@ export default function CheckboxGroup({
             className={cn(
               "group flex cursor-pointer items-center gap-2 focus:outline-none",
               { "border-neutral-500": value.includes(option.value) },
-              { "border-red-500": error }
+              { "border-red-500": error },
             )}
           >
             {option.label}
             <CheckIcon
               className={cn(
                 "pointer-events-none ml-auto size-5 fill-white/50",
-                {
-                  "fill-white/100": value.includes(option.value),
-                }
+                { "fill-white/100": value.includes(option.value) },
               )}
             />
           </Input>

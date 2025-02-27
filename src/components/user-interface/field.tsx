@@ -8,7 +8,13 @@ interface FieldProps {
   error: { message: string } | undefined;
 }
 
-export default function Field({ children, id, label, labelClassName, error }: FieldProps) {
+export default function Field({
+  children,
+  id,
+  label,
+  labelClassName,
+  error,
+}: FieldProps) {
   return (
     <div className="space-y-1">
       <div className="relative">

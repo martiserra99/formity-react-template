@@ -17,7 +17,7 @@ export default function Code({ code }: CodeProps) {
         <pre
           className={cn(
             className,
-            "flex overflow-x-auto font-mono text-base leading-[170%]"
+            "flex overflow-x-auto font-mono text-base leading-[170%]",
           )}
           style={style}
         >
