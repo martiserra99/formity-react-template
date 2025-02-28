@@ -1,13 +1,13 @@
 import { useCallback, useState } from "react";
 
-import { Formity, OnReturn, ReturnValues } from "@formity/react";
+import { Formity, OnReturn, ReturnOutput } from "@formity/react";
 
 import { Data } from "./components";
 
 import { schema, Values } from "./schema";
 
 export default function App() {
-  const [values, setValues] = useState<ReturnValues<Values> | null>(null);
+  const [values, setValues] = useState<ReturnOutput<Values> | null>(null);
 
   const onReturn = useCallback<OnReturn<Values>>((values) => {
     setValues(values);
