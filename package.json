@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@expry/basic": "^0.2.0",
-    "@expry/formity": "^0.2.0",
-    "@expry/system": "^0.1.0",
+    "@expry/basic": "^1.0.0",
+    "@expry/formity": "^1.0.0",
+    "@expry/system": "^1.0.0",
     "@formity/react": "^1.0.0",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",

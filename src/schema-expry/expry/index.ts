@@ -1,18 +1,18 @@
-import { expryInstance } from "@expry/system";
-import { basicOperations, BasicPrototypes } from "@expry/basic";
-import { formityOperations, FormityPrototypes } from "@expry/formity";
+import { createExpry } from "@expry/system";
+import { basicOperations, BasicOperations } from "@expry/basic";
+import { formityOperations, FormityOperations } from "@expry/formity";
 
-import { componentsOperations, ComponentsPrototypes } from "./components";
-import { zodOperations, ZodPrototypes } from "./zod";
+import { componentsOperations, ComponentsOperations } from "./components";
+import { zodOperations, ZodOperations } from "./zod";
 
-type Prototypes = [
-  BasicPrototypes,
-  FormityPrototypes,
-  ComponentsPrototypes,
-  ZodPrototypes,
+type Operations = [
+  BasicOperations,
+  FormityOperations,
+  ComponentsOperations,
+  ZodOperations,
 ];
 
-export const expry = expryInstance<Prototypes>(
+export const expry = createExpry<Operations>(
   basicOperations,
   formityOperations,
   componentsOperations,

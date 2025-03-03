@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { Operations } from "@expry/system";
+import type { Executions } from "@expry/system";
 import type { Resolver } from "react-hook-form";
 import type { OnBack, OnNext, GetState, SetState } from "@formity/react";
 
@@ -20,7 +20,7 @@ import {
   BackButton,
 } from "@/components";
 
-export type ComponentsPrototypes = {
+export type ComponentsOperations = {
   jsx$screen: {
     params: {
       progress: { total: unknown; current: unknown };
@@ -129,7 +129,7 @@ export type ComponentsPrototypes = {
   };
 };
 
-export const componentsOperations: Operations<ComponentsPrototypes> = {
+export const componentsOperations: Executions<ComponentsOperations> = {
   jsx$screen: (args, vars, expry) => {
     const total = expry(args.progress.total, vars) as number;
     const current = expry(args.progress.current, vars) as number;

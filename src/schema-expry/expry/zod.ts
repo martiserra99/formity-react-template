@@ -1,11 +1,11 @@
-import type { Operations } from "@expry/system";
+import type { Executions } from "@expry/system";
 import type { Resolver } from "react-hook-form";
 import type { ZodType } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-export type ZodPrototypes = {
+export type ZodOperations = {
   zod$resolver: {
     params: unknown;
     return: Resolver;
@@ -38,7 +38,7 @@ export type ZodPrototypes = {
   };
 };
 
-export const zodOperations: Operations<ZodPrototypes> = {
+export const zodOperations: Executions<ZodOperations> = {
   zod$resolver: (args, vars, expry) => {
     const zod = expry(args, vars) as ZodType;
     return zodResolver(zod);
