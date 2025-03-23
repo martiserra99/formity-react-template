@@ -75,8 +75,7 @@ export const schema = expry([
                   children: {
                     $jsx$layout: {
                       heading: "Tell us about yourself",
-                      description:
-                        "We would want to know a little bit more about you",
+                      description: "We would want to know about you",
                       fields: [
                         {
                           $jsx$row: {

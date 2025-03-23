@@ -103,7 +103,7 @@ export const schema: Schema<Values> = [
             >
               <Layout
                 heading="Tell us about yourself"
-                description="We would want to know a little bit more about you"
+                description="We would want to know about you"
                 fields={[
                   <Row
                     key="nameSurname"
